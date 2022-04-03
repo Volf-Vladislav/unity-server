@@ -12,9 +12,8 @@ class TokenService {
         return jwt.sign(payload, this.SECRET_KEY, { expiresIn: '72h' })
     }
 
-    public decodeToken(token: string):string {
-        return `${jwt.verify(token, this.SECRET_KEY)}`
-    }
+    public decodeToken = (token: string) =>
+        (jwt.verify(token, this.SECRET_KEY)).toString()
 }
 
 export default new TokenService()

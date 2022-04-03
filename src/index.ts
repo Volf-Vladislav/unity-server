@@ -1,5 +1,6 @@
 import express, { Express } from 'express'
 import mongoose from 'mongoose'
+import cors from 'cors'
 
 import authRouter from './router/AuthRouter'
 
@@ -9,6 +10,7 @@ class Server {
     private readonly app: Express = express()
 
     private createMiddleware() {
+        this.app.use(cors())
         this.app.use(express.json())
         this.app.use(express.urlencoded({ extended: false }))
     }
@@ -31,8 +33,8 @@ class Server {
 
     public createServer() {
         try {
-            this.connectToDB()
             this.listenPort()
+            this.connectToDB()
             this.createMiddleware()
             this.createRoutes()
         }
