@@ -4,8 +4,9 @@ import * as bcrypt from 'bcryptjs'
 import tokenService from '../service/TokenService'
 import User from '../model/User'
 import Person from './helpers/Person'
+import MailService from '../service/MailService'
 
-class AuthController {
+class DefaultAuth {
     public async registration(req: Request, res: Response) {
         try {
             const person: Person = req.body
@@ -23,14 +24,11 @@ class AuthController {
                 .then(() => {
                     return res.status(200).json({ message: 'Пользователь создан' })
                 })
-                .catch((error: Object) => {
-                    return res.status(400).json({ message: 'Заполните все данные', error: error })
-                })
         }
 
         catch (err) {
             console.log(err)
-            return res.status(500).json({ message: 'Серверная ошибка' })
+            return res.status(400).json({ message: 'Заполните все данные' })
         }
     }
 
@@ -57,4 +55,4 @@ class AuthController {
     }
 }
 
-export default new AuthController
+export default new DefaultAuth()

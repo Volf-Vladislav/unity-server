@@ -4,10 +4,9 @@ import mongoose from 'mongoose'
 import authRouter from './router/AuthRouter'
 
 class Server {
-    private port: string = process.env.PORT || '8000'
-    private dataBaseUrl: string = 'mongodb://admin:admin@cluster0-shard-00-00.843j3.mongodb.net:27017,cluster0-shard-00-01.843j3.mongodb.net:27017,cluster0-shard-00-02.843j3.mongodb.net:27017/myFirstDatabase?ssl=true&replicaSet=atlas-15gpa0-shard-0&authSource=admin&retryWrites=true&w=majority'
-    private apiBaseUrl: string = '/api/v1'
-    private app: Express = express()
+    private readonly port: string = process.env.PORT || '8000'
+    private readonly dataBaseUrl: string = 'mongodb://admin:admin@cluster0-shard-00-00.843j3.mongodb.net:27017,cluster0-shard-00-01.843j3.mongodb.net:27017,cluster0-shard-00-02.843j3.mongodb.net:27017/myFirstDatabase?ssl=true&replicaSet=atlas-15gpa0-shard-0&authSource=admin&retryWrites=true&w=majority'
+    private readonly app: Express = express()
 
     private createMiddleware() {
         this.app.use(express.json())
@@ -15,7 +14,7 @@ class Server {
     }
 
     private createRoutes() {
-        this.app.use(`${this.apiBaseUrl}/auth`, authRouter)
+        this.app.use('/api/auth', authRouter)
     }
 
     private connectToDB() {
